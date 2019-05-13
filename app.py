@@ -22,8 +22,8 @@ app = Flask(__name__)
 app.secret_key = 'dsa_proj1'
 
 # MySQL setup
-app.config['MYSQL_DATABASE_USER'] = 'app_user'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Dico1981'
+app.config['MYSQL_DATABASE_USER'] = 'dmsilva'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Dico@1981'
 app.config['MYSQL_DATABASE_DB'] = 'appdb'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
