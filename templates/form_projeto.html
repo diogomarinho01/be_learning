@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Portfolio de Projetos - DSA</title>
+
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://getbootstrap.com/docs/3.3/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/css/signup.css" rel="stylesheet">
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/signUp.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="showHome">&nbsp;&nbsp;Home</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Novo Projeto</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Informe os dados basicos do Projeto</h1>
+        <form class="form-signin">
+        <label for="inputName" class="sr-only">Nome</label>
+        <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Nome do Projeto" required autofocus>
+        <label for="inputObjetivo" class="sr-only">Objetivo</label>
+        <input type="text" name="inputObjetivo" id="inputObjetivo" class="form-control" placeholder="Objetivo" required>
+        <label for="inputDescricao" class="sr-only">Descricao</label>
+        <input type="text" name="inputDescricao" id="inputDescricao" class="form-control" placeholder="Descricao" required autofocus>
+
+        <button id="btnSalvarProjeto" class="btn btn-lg btn-primary btn-block" type="button">Salvar</button>
+      </form>
+      </div>
+
+
+
+      <footer class="footer">
+        <p>&copy; Data Science Academy by Diogo Marinho</p>
+      </footer>
+
+    </div>
+  </body>
+</html>
+

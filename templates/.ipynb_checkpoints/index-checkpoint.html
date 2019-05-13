@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>Portfólio de Projetos</title>
+
+   
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <link href="https://getbootstrap.com/docs/3.3/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
+   
+  </head>
+
+  <body>
+        <form class="form-home">
+            <div class="container">
+              <div class="header">
+                <nav>
+                  <ul class="nav nav-pills pull-right">
+                    {% if 'user_name' in session %}
+                      <li>Rio de Janeiro/Brasil</li>
+                    {%else%}
+                        <li role="presentation"><a href="showLogin">Login</a></li>
+                    {%endif%}
+                  </ul>
+                </nav>
+                <h3 class="text-muted">Portfólio do Cientista de Dados - Diogo Marinho</h3>
+              </div>
+                
+                {% if 'user_name' in session %}
+                  <div class="jumbotron">
+                    <h1>Ola, {{session['user_name']}}</h1>
+                    <h4>{{session['user_email']}}</h4>
+                    <p class="lead"></p>
+                    <p>Seja bem vindo(a)</p>
+                  </div>
+                {%else%}
+                  <div class="jumbotron">
+                    <h1>Acompanhe Meu Portfólio de Projetos</h1>
+                    <p class="lead"></p>
+                    <p><a class="btn btn-lg btn-success" href="showSignUp" role="button">Faça Seu Cadastro</a></p>
+                  </div>                
+                {%endif%}
+
+
+              <div class="row marketing">
+                  
+                <div class="col-lg-20">
+                    {% if projs is defined %}
+                        {%for i in range(0, projs)%} 
+                        <h4>{{ lstProj[i][1] }}</h4>
+                        <p>{{ lstProj[i][2] }}</p>
+                        <a class="btn btn-lg btn-success" href="showProjeto?id={{lstProj[i][0]}}" role="button">Ver Projeto</a>
+                        {%endfor%}
+                    {% else %}
+                        <h4>Favor faca login para ver meus projetos!</h4>
+                    {% endif %}
+                  </div>
+
+              </div>
+
+              <footer class="footer">
+                <p>&copy; Data Science Academy</p>
+              </footer>
+
+            </div>
+      </form>
+  </body>
+</html>
+

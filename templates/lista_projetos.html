@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Portfólio de Projetos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+     <link href="../static/css/signup.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/3.3/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
+   
+  </head>
+
+  <body>
+        <form class="form-home">
+            <div class="container">
+              <div class="header">
+                <nav>
+                  <ul class="nav nav-pills pull-right">
+                    {% if 'user_name' in session %}
+                      <li role="presentation"><a href="showHome">Home</a></li>
+                      &nbsp;-&nbsp;
+                      <li>Rio de Janeiro/Brasil</li>
+                    {%else%}
+                        <li role="presentation"><a href="showHome">Home</a></li>
+                        &nbsp;-&nbsp;<li role="presentation"><a href="showLogin">Login</a></li>
+                    {%endif%}
+                  </ul>
+                </nav>
+                <h3 class="text-muted">Projetos do(a) {{nome}}</h3>
+                  {% if 'user_name' in session %}
+                  <div align="right">
+                    <a href="showNewProject?id={{session['user_id']}}" role="button">Criar um Projeto</a>
+                  </div>
+                  {% endif %}
+              </div>
+                
+                {% if 'user_name' not in session %}
+                  <div class="jumbotron">
+                    <h1>Junte-se ao time</h1>
+                    <p class="lead">Necessario se cadastrar para ver os detalhes.</p>
+                    <p><a class="btn btn-lg btn-warning" href="showSignUp" role="button">Faça Seu Cadastro</a></p>
+                  </div>
+                {%endif%}
+
+                {% if projs is defined and projs > 0 %}
+                        <div class="col-lg-20" align="right">
+                        Ordenar por :
+                        <div class="btn-group btn-group-sm">
+                                <a class="btn btn-primary" href="showProjetos?id={{session['user_id']}}&orderby=data" role="button">Data</a>
+                                <a class="btn btn-primary" href="showProjetos?id={{session['user_id']}}&orderby=nome" role="button">Nome</a>
+                                <a class="btn btn-primary" href="showProjetos?id={{session['user_id']}}&orderby=objetivo" role="button">Objetivo</a>
+                        </div>
+                        </div>
+                        <p>&nbsp;</p>
+                        {% for i in lstProj %}
+                        <div class="card">
+                          <h5 class="card-header">
+                              {{ i.nome }}
+                              <div class="text-right">
+                                  {% if i.user_id == session['user_id']%}
+                                    <a class="btn btn-danger" href="excluirProjeto?id={{i.proj_id}}" role="button">EXCLUIR</a>
+                                  {% endif %}
+                              {% if i.data_conclusao %}
+                              {% elif i.user_id == session['user_id']%}
+                                <a class="btn btn-info" href="concluirProjeto?id={{i.proj_id}}" role="button">CONCLUIR</a>
+                              {% endif %}
+                                  <a class="btn btn-warning" href="showProjeto?id={{i.proj_id}}&nome={{nome}}" role="button">DETALHES</a>
+                              </div>
+                          </h5>
+                          <div class="card-body">
+                            <h5 class="card-title">{{ i.descricao }}</h5>
+                            <p class="card-text">{{ i.objetivo }}</p>
+                            <p>... criado em {{ i.getDataFormatada('inicio') }}</p>
+                              {% if i.data_conclusao %}
+                            <p>... concluido em {{ i.getDataFormatada('termino') }}</p>
+                              {% else %}
+                            <p>... em andamento ha {{ i.getDataFormatada('andamento') }}</p>
+                              {% endif%}
+                          </div>
+                        </div>
+                        <p>&nbsp;</p>
+                        {% endfor %}
+                 {% else %}
+                <div class="col-lg-20" align="right">
+                    <h4>{{nome}} ainda sem projeto cadastrado!</h4>
+                </div>
+                 {% endif %}
+
+                <div class="row marketing">
+                  <div class="col-lg-20">
+                      <p>Mensagem da semana</p>
+                  </div>
+                </div>
+              <footer class="footer">
+                <p>&copy; Data Science Academy by Diogo Marinho</p>
+              </footer>
+
+            </div>
+      </form>
+  </body>
+</html>
+

@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Portfolio de Projetos - DSA</title>
+
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://getbootstrap.com/docs/3.3/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/css/signup.css" rel="stylesheet">
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/signUp.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="showHome?id={{session['user_id']}}">&nbsp;&nbsp;Home</a>
+              -
+              <a href="showProjeto?id={{id}}">&nbsp;&nbsp;Projeto</a>
+            </li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Novo Item do Projeto - {{nome}}</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Informe os dados do item</h1>
+        <form id="form_item" method="POST" class="form-signin" enctype="multipart/form-data">
+          <input type="hidden" name="proj_id" id="proj_id" class="form-control" value="{{id}}">
+          <input type="hidden" name="item_id" id="item_id" class="form-control" value="{{item.item_id}}">
+          <label for="inputName" class="sr-only">Nome</label>
+
+          <p><input type="name" name="inputName" id="inputName" class="form-control" placeholder="Nome" value="{{item.nome}}" required autofocus></p>
+          <label for="inputDescricao" class="sr-only">Descricao</label>
+
+          <p><textarea id="inputDescricao" name="inputDescricao" rows = "4" cols = "30" placeholder="Descricao" class="form-control" >{{item.descricao}}</textarea></p>
+
+          <p>Arquivo : <input type="file" id="profile_image" name="profile_image"></p>
+
+          <button id="btnSalvarItemProjeto" class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
+        </form>
+      </div>
+
+
+
+      <footer class="footer">
+        <p>&copy; Data Science Academy by Diogo Marinho</p>
+      </footer>
+
+    </div>
+  </body>
+</html>
+

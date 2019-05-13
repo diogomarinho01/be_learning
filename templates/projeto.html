@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Portfolio de Projetos</title>
+
+   
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+     <link href="../static/css/timeline.css" rel="stylesheet">
+
+    <link href="https://getbootstrap.com/docs/3.3/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/signUp.js"></script>
+  </head>
+
+  <body>
+  <form class="form-signin">
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="showHome">&nbsp;&nbsp;Home</a>
+            <li role="presentation"><a href="showProjetos?id={{projeto.user_id}}&nome={{nome}}">&nbsp;&nbsp;Projetos</a>
+            </li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Projeto - {{projeto.nome}}</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Descricao do Projeto</h1>
+          <h2>{{projeto.descricao}}</h2>
+          <p>{{projeto.objetivo}}</p>
+      </div>
+
+      {% if projeto.user_id == session['user_id'] and projeto.data_conclusao is none %}
+      <div class="btn-group btn-group-sm">
+        <a class="btn btn-primary" href="showNewItemProject?id={{projeto.proj_id}}&nome={{projeto.nome}}" role="button">Novo Item</a>
+      </div>
+      {% endif %}
+
+      {%if qtd_itens > 0%}
+      <ul class="timeline">
+        {% for i in lst_itens %}
+        {%if lst_itens.index(i) % 2 > 0 %}
+        <li class="timeline-inverted">
+          <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">{{i.nome}}</h4>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{i.getDataFormatada()}}</small></p>
+            </div>
+            <div class="timeline-body">
+              <p>{{i.descricao}}</p>
+              <hr class="half-rule"/>
+              <img width="100px" height="100px" {{i.flag_img_visible}} src="image/{{i.image_name}}">
+              <a target="_blank" href="file/{{i.file_name}}" {{i.flag_file_visible}}>{{i.file_name}}</a>
+              {% if projeto.user_id == session['user_id'] and projeto.data_conclusao is none %}
+              <hr class="half-rule"/>
+              <a target="_self" href="excluiItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}" ><img src="static/lixo.png"></a>
+              &nbsp;.&nbsp;
+              <a target="_self" href="showNewItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}&nome={{projeto.nome}}" ><img src="static/edit.png"></a>
+              {% endif %}
+            </div>
+          </div>
+        </li>
+        {%else%}
+        <li>
+          <div class="timeline-badge info"><i class="glyphicon glyphicon-check"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">{{i.nome}}</h4>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{i.getDataFormatada()}}</small></p>
+            </div>
+            <div class="timeline-body">
+              <p>{{i.descricao}}</p>
+              <hr class="half-rule"/>
+              <img width="200px" height="200px" {{i.flag_img_visible}} src="image/{{i.image_name}}">
+              <a target="_blank" href="file/{{i.file_name}}" {{i.flag_file_visible}}>{{i.file_name}}</a>
+              {% if projeto.user_id == session['user_id'] and projeto.data_conclusao is none %}
+              <hr class="half-rule"/>
+              <a target="_self" href="excluiItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}" ><img src="static/lixo.png"></a>
+              &nbsp;.&nbsp;
+              <a target="_self" href="showNewItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}&nome={{projeto.nome}}" ><img src="static/edit.png"></a>
+              {% endif %}
+            </div>
+          </div>
+        </li>
+
+        {%endif%}
+
+        {%endfor%}
+      </ul>
+      {%else%}
+      <p>Nenhum item cadastrado</p>
+      {%endif%}
+      <footer class="footer">
+        <p>&copy; Data Science Academy by Diogo Marinho</p>
+      </footer>
+
+    </div>
+  </form>
+  </body>
+</html>
+
+
+

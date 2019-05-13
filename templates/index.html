@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Portfólio de Projetos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+     <link href="../static/css/signup.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/3.3/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
+   
+  </head>
+
+  <body>
+        <form class="form-home">
+            <div class="container">
+              <div class="header">
+                <nav>
+                  <ul class="nav nav-pills pull-right">
+                    {% if 'user_name' in session %}
+                      <li>Rio de Janeiro/Brasil</li>
+                      &nbsp;-&nbsp;<li role="presentation"><a href="showLogout">Logout</a></li>
+                    {%else%}
+                        <li role="presentation"><a href="showLogin">Login</a></li>
+                    {%endif%}
+                  </ul>
+                </nav>
+                <h3 class="text-muted">Portfólios de nossos Cientistas de Dados</h3>
+              </div>
+                
+                {% if 'user_name' in session %}
+                  <div class="jumbotron">
+                    <h4>Ola, {{session['user_name']}}, seja bem vindo(a)</h4>
+                    <h5>{{session['user_email']}}</h5>
+                  </div>
+                {%else%}
+                  <div class="jumbotron">
+                    <h1>Entre para nosso time de Projetos</h1>
+                    <p class="lead"></p>
+                    <p><a class="btn btn-lg btn-warning" href="showSignUp" role="button">Faça Seu Cadastro</a></p>
+                  </div>
+                {%endif%}
+
+                {% if lst_users is defined %}
+                        <div class="col-lg-20" align="right">
+                        Ordenar por :
+                        <div class="btn-group btn-group-sm">
+                                <a class="btn btn-primary" href="showHome?orderby=ts_insercao" role="button">Data</a>
+                                <a class="btn btn-primary" href="showHome?orderby=user_name" role="button">Nome</a>
+                                <a class="btn btn-primary" href="showHome?orderby=qtd_projetos" role="button"># Projetos</a>
+                                <a class="btn btn-primary" href="showHome?orderby=qtd_consultas" role="button"># Consultas</a>
+                        </div>
+                        </div>
+                        <p>&nbsp;</p>
+                        {% for i in lst_users %}
+                        <div class="card">
+                          <h5 class="card-header">{{ i.user_name }}
+                          <div class="text-right">
+                          <a class="btn btn-warning" href="showProjetos?id={{i.user_id}}&nome={{ i.user_name }}" role="button">Ver Projetos</a>
+                          </div>
+                          </h5>
+                          <div class="card-body">
+                            <h5 class="card-title">Dados sobre os projetos</h5>
+                            <p class="card-text">Qtd Projetos :{{ i.qtd_projetos }} -
+                                Qtd Atividades :{{ i.qtd_atividades }} - Qtd Consultas :{{ i.qtd_consultas }}</p>
+                            <p>... usuario desde {{ i.getDataFormatada() }}</p>
+                          </div>
+                        </div>
+                        <p>&nbsp;</p>
+                        {% endfor %}
+                 {% else %}
+                    <h4>Nenhum usuario cadastrado. Seja o primeiro!</h4>
+                 {% endif %}
+
+                <div class="row marketing">
+                  <div class="col-lg-20">
+                      <p>Mensagem da semana - {{mensagem}}</p>
+                  </div>
+                </div>
+              <footer class="footer">
+                <p>&copy; Data Science Academy by Diogo Marinho</p>
+              </footer>
+
+            </div>
+      </form>
+  </body>
+</html>
+
