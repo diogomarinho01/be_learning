@@ -4,14 +4,17 @@ from werkzeug import generate_password_hash, check_password_hash
 # pip install Flask-MySQL (Windows)
 # pip install flask_table
 # pip install pymongo
+
+
 from flaskext.mysql import MySQL
 from contextlib import closing
 from flask_pymongo import PyMongo
 
-from projeto import Projeto
-from itens_projeto import ItensProjeto
-from users import User
-from dados_site import DadosSite
+from modules.projeto import projeto
+from modules.dados_site import dados_site
+from modules.users import users
+from modules.itens_projeto import itens_projeto
+
 
 # export FLASK_APP=app.py
 # export FLASK_DEBUG=1
@@ -19,7 +22,7 @@ from dados_site import DadosSite
 
 mysql = MySQL()
 app = Flask(__name__)
-app.secret_key = 'dsa_proj1'
+app.secret_key = 'projeto_001'
 
 # MySQL setup
 app.config['MYSQL_DATABASE_USER'] = 'dmsilva'
@@ -27,7 +30,7 @@ app.config['MYSQL_DATABASE_PASSWORD'] = 'Dico@1981'
 app.config['MYSQL_DATABASE_DB'] = 'appdb'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
-app.config['MONGO_URI'] = 'mongodb://192.168.56.101:27017/cadastrodb'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/cadastrodb'
 
 mongo = PyMongo(app)
 
@@ -43,13 +46,13 @@ def showHome():
 
                     cursor.callproc('sp_GetSite')
                     site = list(cursor)
-                    s = DadosSite()
+                    s = dados_site()
                     lista_site = s.json_to_site(site)
 
                     cursor.callproc('sp_GetUsers')
                     data = list(cursor)
 
-                    p = User()
+                    p = users()
                     lista = p.json_to_user(data)
                     sorted_list = p.sortList(lista, order_by)
 
@@ -76,12 +79,12 @@ def showProjeto():
                     cursor.callproc('sp_GetDataProjects', (_id, _user_id))
                     data = list(cursor)
 
-                    p = Projeto()
+                    p = projeto()
                     lista = p.json_to_projeto(data)
 
                     cursor.callproc('sp_GetDataItensProject', (_id,))
                     dataItens = list(cursor)
-                    it = ItensProjeto()
+                    it = itens_projeto()
 
                     if dataItens[0][0] != 'nenhum projeto':
                         listaItens = it.json_to_projeto(dataItens)
@@ -148,7 +151,7 @@ def showProjetos():
                     data = list(cursor)
 
                     if data[0][0] != 'nenhum projeto':
-                        p = Projeto()
+                        p = projeto()
                         lista = p.json_to_projeto(data)
                         sorted_list = p.sortListProjeto(lista, order_by)
                     else:
@@ -180,7 +183,7 @@ def showNewItemProject():
 
                     cursor.callproc('sp_GetDataItemProject', (_item_id,))
                     dataItens = list(cursor)
-                    it = ItensProjeto()
+                    it = itens_projeto()
 
                     if dataItens[0][0] != 'nenhum projeto':
                         listaItens = it.json_to_projeto(dataItens)
@@ -188,7 +191,7 @@ def showNewItemProject():
     if _item_id:
         return render_template('form_item_projeto.html', id=_id, nome=_nome, item=listaItens[0])
     else:
-        i = ItensProjeto()
+        i = itens_projeto()
         i.nome = ''
         i.descricao = ''
         return render_template('form_item_projeto.html', id=_id, nome=_nome, item=i)
@@ -205,13 +208,13 @@ def main():
 
                     cursor.callproc('sp_GetSite')
                     site = list(cursor)
-                    s = DadosSite()
+                    s = dados_site()
                     lista_site = s.json_to_site(site)
 
                     cursor.callproc('sp_GetUsers')
                     data = list(cursor)
 
-                    p = User()
+                    p = users()
                     lista = p.json_to_user(data)
                     sorted_list = p.sortList(lista, order_by)
 
@@ -249,7 +252,7 @@ def signUp():
 
             with closing(mysql.connect()) as conn:
                 with closing(conn.cursor()) as cursor:
-            
+
                     _hashed_password = generate_password_hash(_password)
                     cursor.callproc('sp_createUser', (_name, _email, _hashed_password))
                     data = cursor.fetchall()
@@ -435,10 +438,10 @@ def login():
 
             with closing(mysql.connect()) as conn:
                 with closing(conn.cursor()) as cursor:
-            
+
                     cursor.callproc('sp_validaAcesso', (_email,))
                     data = cursor.fetchall()
-                                        
+
                     if check_password_hash(data[0][3], _password):
                         session['user_name'] = data[0][1]
                         session['user_email'] = data[0][2]
@@ -454,4 +457,5 @@ def login():
 
 
 if __name__ == "__main__":
-    app.run(port=5053)
+    app.run()
+
