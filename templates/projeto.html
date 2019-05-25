@@ -1,10 +1,9 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
   <head>
-    <title>Portfolio de Projetos</title>
+    <title>Detalhes do Projeto</title>
 
-   
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
      <link href="../static/css/timeline.css" rel="stylesheet">
 
@@ -14,7 +13,6 @@
   </head>
 
   <body>
-  <form class="form-signin">
     <div class="container">
       <div class="header">
         <nav>
@@ -31,13 +29,26 @@
         <h1>Descricao do Projeto</h1>
           <h2>{{projeto.descricao}}</h2>
           <p>{{projeto.objetivo}}</p>
-      </div>
 
-      {% if projeto.user_id == session['user_id'] and projeto.data_conclusao is none %}
-      <div class="btn-group btn-group-sm">
-        <a class="btn btn-primary" href="showNewItemProject?id={{projeto.proj_id}}&nome={{projeto.nome}}" role="button">Novo Item</a>
-      </div>
+        {% if projeto.user_id == session['user_id'] and projeto.data_conclusao is none %}
+          <div class="control-group">
+      <h1>Novo Item</h1>
+        <form id="form_item" method="POST" class="form-signin" enctype="multipart/form-data">
+          <input type="hidden" name="proj_id" id="proj_id" class="form-control" value="{{projeto.proj_id}}">
+          <input type="hidden" name="item_id" id="item_id" class="form-control" value="0">
+
+          <label for="inputName" class="sr-only">Nome</label>
+          <p><input type="name" name="inputName" id="inputName" class="form-control" placeholder="Nome" required autofocus></p>
+          <label for="inputDescricao" class="sr-only">Descricao</label>
+          <h6 class="pull-right" id="count_message"></h6>
+          <p><textarea id="inputDescricao" name="inputDescricao" rows = "4" cols = "30" placeholder="Descricao" class="form-control" ></textarea></p>
+          <p>Arquivo : <input type="file" id="profile_image" name="profile_image"></p>
+
+          <button id="btnSalvarItemProjeto" class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
+       </form>
+          </div>
       {% endif %}
+      </div>
 
       {%if qtd_itens > 0%}
       <ul class="timeline">
@@ -57,7 +68,7 @@
               <a target="_blank" href="file/{{i.file_name}}" {{i.flag_file_visible}}>{{i.file_name}}</a>
               {% if projeto.user_id == session['user_id'] and projeto.data_conclusao is none %}
               <hr class="half-rule"/>
-              <a target="_self" href="excluiItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}" ><img src="static/lixo.png"></a>
+              <a target="_self" href="excluiItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}" onclick="return confirm('Ao EXCLUIR esse item, todos os dados serao perdidos. Favor Confirmar?')" ><img src="static/lixo.png"></a>
               &nbsp;.&nbsp;
               <a target="_self" href="showNewItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}&nome={{projeto.nome}}" ><img src="static/edit.png"></a>
               {% endif %}
@@ -79,7 +90,7 @@
               <a target="_blank" href="file/{{i.file_name}}" {{i.flag_file_visible}}>{{i.file_name}}</a>
               {% if projeto.user_id == session['user_id'] and projeto.data_conclusao is none %}
               <hr class="half-rule"/>
-              <a target="_self" href="excluiItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}" ><img src="static/lixo.png"></a>
+              <a target="_self" href="excluiItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}" onclick="return confirm('Ao EXCLUIR esse item, todos os dados serao perdidos. Favor Confirmar?')"><img src="static/lixo.png"></a>
               &nbsp;.&nbsp;
               <a target="_self" href="showNewItemProject?item_id={{i.item_id}}&id={{projeto.proj_id}}&nome={{projeto.nome}}" ><img src="static/edit.png"></a>
               {% endif %}
@@ -99,7 +110,6 @@
       </footer>
 
     </div>
-  </form>
   </body>
 </html>
 

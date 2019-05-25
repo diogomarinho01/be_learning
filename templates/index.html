@@ -24,7 +24,7 @@
                     {%endif%}
                   </ul>
                 </nav>
-                <h3 class="text-muted">Portfólios de nossos Cientistas de Dados</h3>
+                <h3 class="text-muted">{{nome_site}}</h3>
               </div>
                 
                 {% if 'user_name' in session %}
@@ -59,10 +59,9 @@
                           </div>
                           </h5>
                           <div class="card-body">
-                            <h5 class="card-title">Dados sobre os projetos</h5>
                             <p class="card-text">Qtd Projetos :{{ i.qtd_projetos }} -
                                 Qtd Atividades :{{ i.qtd_atividades }} - Qtd Consultas :{{ i.qtd_consultas }}</p>
-                            <p>... usuario desde {{ i.getDataFormatada() }}</p>
+                            <p>... entrou para o time em {{ i.getDataFormatada() }}</p>
                           </div>
                         </div>
                         <p>&nbsp;</p>

@@ -25,12 +25,12 @@ app = Flask(__name__)
 app.secret_key = 'projeto_001'
 
 # MySQL setup
-app.config['MYSQL_DATABASE_USER'] = 'app_user'
-app.config['MYSQL_DATABASE_PASSWORD'] = '******'
-app.config['MYSQL_DATABASE_DB'] = 'appdb'
+app.config['MYSQL_DATABASE_USER'] = 'user_do_banco'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'senha_dp_banco'
+app.config['MYSQL_DATABASE_DB'] = 'none_do_banco'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/cadastrodb'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/banco_mongo_bd'
 
 mongo = PyMongo(app)
 
@@ -49,15 +49,19 @@ def showHome():
                     s = dados_site()
                     lista_site = s.json_to_site(site)
 
-                    cursor.callproc('sp_GetUsers')
-                    data = list(cursor)
+                    if len(lista_site) > 0:
 
-                    p = users()
-                    lista = p.json_to_user(data)
-                    sorted_list = p.sortList(lista, order_by)
+                        cursor.callproc('sp_GetUsers')
+                        data = list(cursor)
 
-                    return render_template('index.html', lst_users=sorted_list, qtd_itens=len(lista),
-                                           mensagem=lista_site[0].mensagem)
+                        p = users()
+                        lista = p.json_to_user(data)
+                        sorted_list = p.sortList(lista, order_by)
+
+                        return render_template('index.html', lst_users=sorted_list, qtd_itens=len(lista),
+                                               mensagem=lista_site[0].mensagem, nome_site=lista_site[0].nome)
+                    else:
+                        return render_template('new_site.html')
 
     except Exception as e:
         return json.dumps({'error': str(e)})
@@ -211,15 +215,19 @@ def main():
                     s = dados_site()
                     lista_site = s.json_to_site(site)
 
-                    cursor.callproc('sp_GetUsers')
-                    data = list(cursor)
+                    if len(lista_site) > 0:
 
-                    p = users()
-                    lista = p.json_to_user(data)
-                    sorted_list = p.sortList(lista, order_by)
+                        cursor.callproc('sp_GetUsers')
+                        data = list(cursor)
 
-                    return render_template('index.html', lst_users=sorted_list, qtd_itens=len(lista),
-                                           mensagem=lista_site[0].mensagem)
+                        p = users()
+                        lista = p.json_to_user(data)
+                        sorted_list = p.sortList(lista, order_by)
+
+                        return render_template('index.html', lst_users=sorted_list, qtd_itens=len(lista),
+                                               mensagem=lista_site[0].mensagem, nome_site=lista_site[0].nome)
+                    else:
+                        return render_template('new_site.html')
 
     except Exception as e:
         return json.dumps({'error': str(e)})
@@ -270,6 +278,34 @@ def signUp():
         return json.dumps({'error': str(e)})
 
 
+@app.route('/newSite', methods=['POST', 'GET'])
+def newSite():
+    try:
+        _name = request.form['inputName']
+        _mensagem = request.form['inputMensagem']
+
+        # Valida os dados recebidos
+        if _name and _mensagem:
+
+            with closing(mysql.connect()) as conn:
+                with closing(conn.cursor()) as cursor:
+
+                    cursor.callproc('sp_createSite', (_name, _mensagem))
+                    data = cursor.fetchall()
+
+                    if len(data) is 0:
+                        conn.commit()
+                        return json.dumps({'message ': 'Dados criados com sucesso!'})
+                    else:
+                        print(str(data[0]))
+                        return json.dumps({'error ': str(data[0])})
+        else:
+            return json.dumps({'error': '<span>preencha os campos requeridos</span>'})
+
+    except Exception as e:
+        return json.dumps({'error': str(e)})
+
+
 @app.route('/concluirProjeto', methods=['POST', 'GET'])
 def concluirProjeto():
     try:
@@ -283,6 +319,35 @@ def concluirProjeto():
                 with closing(conn.cursor()) as cursor:
 
                     cursor.callproc('sp_concluirProjeto', (_proj_id,))
+                    data = cursor.fetchall()
+
+                    if len(data) is 1:
+                        conn.commit()
+
+                        return redirect('showProjetos?id='+str(_user_id))
+                    else:
+                        return json.dumps({'error ': str(data[0])})
+        else:
+            return json.dumps({'error': '<span>preencha os campos requeridos</span>'})
+
+    except Exception as e:
+        return json.dumps({'error': str(e)})
+
+
+@app.route('/visibilidadeProjeto', methods=['POST', 'GET'])
+def visibilidadeProjeto():
+    try:
+        _proj_id = request.args.get('id')
+        _user_id = session['user_id']
+        _v = request.args.get('v')
+
+        # Valida os dados recebidos
+        if _proj_id:
+
+            with closing(mysql.connect()) as conn:
+                with closing(conn.cursor()) as cursor:
+
+                    cursor.callproc('sp_visibilidadeProjeto', (_proj_id,_v))
                     data = cursor.fetchall()
 
                     if len(data) is 1:
@@ -457,5 +522,5 @@ def login():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=8097)
 

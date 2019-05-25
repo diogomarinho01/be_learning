@@ -1,17 +1,61 @@
 $(function(){
-	$('#btnSignUp').click(function(){
-		
-		$.ajax({
-			url: '/signUp',
-			data: $('form').serialize(),
-			type: 'POST',
-            success: function(data) { //O HTML é retornado em 'data'
-                if(data.includes("error"))
-                    alert(data); //Se sucesso um alert com o conteúdo retornado pela URL solicitada será exibido.
-                else
-                    $(location).attr('href','showHome');
+
+	$('#btnNewSite').click(function(){
+
+        $("<div title=\"Confirmar!!!\">Ola, favor confirmar os dados basicos.</div>").dialog({
+            buttons: {
+                "Confirmar": function() {
+
+                $.ajax({
+                url: '/newSite',
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function(data) { //O HTML é retornado em 'data'
+                    if(data.includes("error"))
+                        alert(data); //Se sucesso um alert com o conteúdo retornado pela URL solicitada será exibido.
+                    else
+                        $(location).attr('href','showHome');
+                }
+                });
+
+                },
+                "Sair": function() {
+                    $(this).dialog("close");
+                }
             }
-            });
+        });
+
+	});
+});
+
+
+$(function(){
+
+	$('#btnSignUp').click(function(){
+
+        $("<div title=\"Confirmar!!!\">Ola, seja bem vindo. Ao confirmar seu cadastro voce aceita os termos de uso e policitas de privacidade.</div>").dialog({
+            buttons: {
+                "Confirmar": function() {
+
+                $.ajax({
+                url: '/signUp',
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function(data) { //O HTML é retornado em 'data'
+                    if(data.includes("error"))
+                        alert(data); //Se sucesso um alert com o conteúdo retornado pela URL solicitada será exibido.
+                    else
+                        $(location).attr('href','showHome');
+                }
+                });
+
+                },
+                "Sair": function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
 	});
 });
 
@@ -96,3 +140,14 @@ $(function(){
 	});
 });
 
+$(function(){
+    var text_max = 200;
+    $('#count_message').html(text_max + ' restante.');
+
+    $('#inputDescricao').keyup(function() {
+      var text_length = $('#inputDescricao').val().length;
+      var text_remaining = text_max - text_length;
+
+      $('#count_message').html(text_remaining + ' restante.');
+    });
+});

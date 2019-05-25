@@ -58,14 +58,24 @@
                               {{ i.nome }}
                               <div class="text-right">
                                   {% if i.user_id == session['user_id']%}
-                                    <a class="btn btn-danger" href="excluirProjeto?id={{i.proj_id}}" role="button">EXCLUIR</a>
+                                    <a class="btn btn-danger" href="excluirProjeto?id={{i.proj_id}}" onclick="return confirm('Ao EXCLUIR seu projeto, todos os dados serao perdidos. Favor Confirmar?')" role="button">EXCLUIR</a>
                                   {% endif %}
                               {% if i.data_conclusao %}
                               {% elif i.user_id == session['user_id']%}
-                                <a class="btn btn-info" href="concluirProjeto?id={{i.proj_id}}" role="button">CONCLUIR</a>
+                                <a class="btn btn-info" href="concluirProjeto?id={{i.proj_id}}" onclick="return confirm('Ao CONCLUIR seu projeto, voce nao podera mais altera-lo. Favor Confirmar?')" role="button">CONCLUIR</a>
+
+                                  {% if i.flag_privado %}
+                                        <a class="btn btn-secondary" href="visibilidadeProjeto?id={{i.proj_id}}&v=0" onclick="return confirm('Ao tornar seu PROJETO PUBLICO, todos poderao ver os detalhes dele. Favor Confirmar?')" title="Permitir que todos possam ver os detalhes este projeto." role="button">TORNAR PUBLICO</a>
+                                  {% else %}
+                                        <a class="btn btn-success" href="visibilidadeProjeto?id={{i.proj_id}}&v=1" onclick="return confirm('Ao tornar seu PROJETO PRIVADO, somente voce podera ver os detalhes dele. Favor Confirmar?')" title="Bloquear o acesso aos detalhes deste projeto. Somente voce podera ver." role="button">TORNAR PRIVADO</a>
+                                  {% endif %}
                               {% endif %}
                                   {% if 'user_name' in session %}
-                                  <a class="btn btn-warning" href="showProjeto?id={{i.proj_id}}&nome={{nome}}" role="button">DETALHES</a>
+                                      {% if i.user_id == session['user_id'] %}
+                                          <a class="btn btn-warning" href="showProjeto?id={{i.proj_id}}&nome={{nome}}" role="button">DETALHES</a>
+                                      {% elif not i.flag_privado %}
+                                          <a class="btn btn-warning" href="showProjeto?id={{i.proj_id}}&nome={{nome}}" role="button">DETALHES</a>
+                                      {% endif %}
                                   {% endif %}
                               </div>
                           </h5>

@@ -4,7 +4,7 @@ import datetime
 class projeto(object):
     """__init__() functions as the class constructor"""
     def __init__(self, proj_id=None, nome=None, descricao=None, user_id=None, objetivo=None,
-                 data=None, data_conclusao=None, flag_exclusao=None):
+                 data=None, data_conclusao=None, flag_exclusao=None, flag_privado=None):
         self.proj_id = proj_id
         self.nome = nome
         self.descricao = descricao
@@ -13,11 +13,12 @@ class projeto(object):
         self.data = data
         self.data_conclusao = data_conclusao
         self.flag_exclusao = flag_exclusao
+        self.flag_privado=flag_privado
 
     def json_to_projeto(self, lista=None):
         projetoList = []
         for item in lista:
-            projetoList.append(projeto(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7]))
+            projetoList.append(projeto(item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8]))
 
         return projetoList
 
