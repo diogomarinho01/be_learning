@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="84fa70a5-2644-4192-9297-b98ff26f8dbb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/projeto.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/projeto.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/signup.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/signup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/signUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/signUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/form_projeto.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/form_projeto.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/lista_projetos.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/lista_projetos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/projeto.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/projeto.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signup.html" afterDir="false" />
-    </list>
+    <list default="true" id="84fa70a5-2644-4192-9297-b98ff26f8dbb" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,38 +9,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="209" selection-start-line="209" selection-end-line="209" />
-              <folding>
-                <element signature="e#0#83#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/signUp.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="75" selection-start-line="4" selection-start-column="75" selection-end-line="4" selection-end-column="75" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/new_site.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="36" column="105" selection-start-line="36" selection-start-column="105" selection-end-line="36" selection-end-column="105" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -81,8 +39,8 @@
         <option value="$PROJECT_DIR$/static/css/signup.css" />
         <option value="$PROJECT_DIR$/templates/projeto.html" />
         <option value="$PROJECT_DIR$/templates/signup.html" />
-        <option value="$PROJECT_DIR$/static/js/signUp.js" />
         <option value="$PROJECT_DIR$/templates/new_site.html" />
+        <option value="$PROJECT_DIR$/static/js/signUp.js" />
         <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
@@ -252,22 +210,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/new_site.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="36" column="105" selection-start-line="36" selection-start-column="105" selection-end-line="36" selection-end-column="105" />
+        <state relative-caret-position="140">
+          <caret line="38" column="137" selection-start-line="38" selection-start-column="137" selection-end-line="38" selection-end-column="137" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/signUp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="4" column="75" selection-start-line="4" selection-start-column="75" selection-end-line="4" selection-end-column="75" />
+          <caret line="4" column="59" selection-start-line="4" selection-start-column="59" selection-end-line="4" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="209" selection-start-line="209" selection-end-line="209" />
+        <state relative-caret-position="232">
+          <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
           <folding>
             <element signature="e#0#83#0" expanded="true" />
           </folding>
