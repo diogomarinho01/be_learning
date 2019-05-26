@@ -25,12 +25,12 @@ app = Flask(__name__)
 app.secret_key = 'projeto_001'
 
 # MySQL setup
-app.config['MYSQL_DATABASE_USER'] = 'user_do_banco'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'senha_dp_banco'
-app.config['MYSQL_DATABASE_DB'] = 'none_do_banco'
+app.config['MYSQL_DATABASE_USER'] = 'usuario_bd'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'senha_db'
+app.config['MYSQL_DATABASE_DB'] = 'nome_db'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/banco_mongo_bd'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/nome_db_mongo'
 
 mongo = PyMongo(app)
 

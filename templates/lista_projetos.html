@@ -46,9 +46,9 @@
                         <div class="col-lg-20" align="right">
                         Ordenar por :
                         <div class="btn-group btn-group-sm">
-                                <a class="btn btn-primary" href="showProjetos?id={{session['user_id']}}&orderby=data" role="button">Data</a>
-                                <a class="btn btn-primary" href="showProjetos?id={{session['user_id']}}&orderby=nome" role="button">Nome</a>
-                                <a class="btn btn-primary" href="showProjetos?id={{session['user_id']}}&orderby=objetivo" role="button">Objetivo</a>
+                                <a class="btn btn-primary" href="showProjetos?id={{request.args.get('id')}}&nome={{request.args.get('nome')}}&orderby=data" role="button">Data</a>
+                                <a class="btn btn-primary" href="showProjetos?id={{request.args.get('id')}}&nome={{request.args.get('nome')}}&orderby=nome" role="button">Nome</a>
+                                <a class="btn btn-primary" href="showProjetos?id={{request.args.get('id')}}&nome={{request.args.get('nome')}}&orderby=objetivo" role="button">Objetivo</a>
                         </div>
                         </div>
                         <p>&nbsp;</p>
