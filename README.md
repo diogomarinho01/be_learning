@@ -1,6 +1,6 @@
 ## Projeto BE-LEARNING
 
-Projeto para registrar os estudos em DataScience, embora ele serve para qualquer tipo de estudo.
+Projeto para registrar os estudos em DataScience, embora, ele serve para qualquer tipo de estudo.
 
 Ele utiliza a linguagem python, banco de dados relacional mysql e o noSQL mongoDB.
 
