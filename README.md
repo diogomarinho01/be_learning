@@ -8,6 +8,7 @@ Ele utiliza a linguagem python, banco de dados relacional mysql e o noSQL mongoD
 
 Com isso, voce pode estudar, registrar seus estudos em uma plataforma online e revisar sempre que quiser. Alem de divulgar o que voce tem estudado.
 
-Veja funcionando em http://201.37.212.28
+Veja funcionando em http://201.37.212.28:81
+
 
 Trabalhando em evolucoes/melhorias.
